@@ -1,0 +1,58 @@
+body {
+    overflow: hidden;
+}
+
+.fullBg {
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+
+#logo {
+    position: absolute;
+    left: 35px;
+    top: 35px;
+    z-index: 100;
+    float: none;
+    clear: both;
+    margin: 0;
+    padding: 0;
+    width: 179px;
+    height: 33px;
+}
+
+
+#nav {
+    position: absolute;
+    right: 35px;
+    top: 35px;
+    z-index: 110;
+    float: none;
+    clear: both;
+    margin: 0;
+    padding: 0;
+}
+
+#nav li {
+    cursor: pointer;
+}
+
+.panel {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    z-index: 50;
+    float: left;
+    clear: both;
+    width: 430px;
+    height: 305px;
+    margin: -180px 0 0 0;
+    padding: 35px 35px 15px 35px;
+    overflow: hidden;
+    background: #ffffff;
+    opacity: 0.8;
+}
+
+.blue {
+    color: #0088cc;
+}
