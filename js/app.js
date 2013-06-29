@@ -1,6 +1,6 @@
 angular.module('website', [])
-    .controller('MainCtrl', ['$scope', function ($scope) {
-        $scope.pages = {
+    .factory('ContentService', function () {
+        var content = {
             'home': {
                 label: 'Home',
                 sublabel: 'Sublabel',
@@ -17,6 +17,17 @@ angular.module('website', [])
                 content: 'Bacon ipsum dolor sit amet prosciutto filet mignon biltong, pork loin turkey beef ribs brisket. Pancetta corned beef spare ribs strip steak ball tip ham, meatloaf turkey.'
             }
         };
+
+        var getContent = function () {
+            return content;
+        }
+
+        return {
+            getContent: getContent
+        };
+    })
+    .controller('MainCtrl', function ($scope, ContentService) {
+        $scope.pages = ContentService.getContent();
 
         $scope.currentPage = 'home';
         $scope.page = $scope.pages['home'];
@@ -35,8 +46,8 @@ angular.module('website', [])
         $scope.isCurrentPage = function (page) {
             return $scope.currentPage === page;
         };
-    }])
-    .directive('bg', function factory($window) {
+    })
+    .directive('bg', function($window) {
         // Adapted from http://bavotasan.com/2011/full-sizebackground-image-jquery-plugin/ Thanks @bavotasan!
         var linker = function (scope, element, attrs) {
             var resizeBG = function () {
