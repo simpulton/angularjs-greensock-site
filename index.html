@@ -1,20 +1,20 @@
 <!DOCTYPE html>
 <html ng-app="website">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta charset="utf-8">
     <title>AngularJS Animate Website</title>
 
     <link href="css/bootstrap.css" rel="stylesheet">
-    <link rel="stylesheet" href="css/styles.css"/>
+    <link rel="stylesheet" href="css/styles.css">
 </head>
 
 <body ng-controller="MainCtrl">
 
-<img bg class="fullBg" ng-show="isCurrentPage('home')" ng-animate="{show: 'show-bg', hide: 'hide-bg'}" src="images/bg00.jpg"/>
-<img bg class="fullBg" ng-show="isCurrentPage('about')" ng-animate="{show: 'show-bg', hide: 'hide-bg'}" src="images/bg01.jpg"/>
-<img bg class="fullBg" ng-show="isCurrentPage('contact')" ng-animate="{show: 'show-bg', hide: 'hide-bg'}" src="images/bg02.jpg"/>
+<img bg class="fullBg" ng-show="isCurrentPage('home')" ng-animate="{show: 'show-bg', hide: 'hide-bg'}" src="images/bg00.jpg">
+<img bg class="fullBg" ng-show="isCurrentPage('about')" ng-animate="{show: 'show-bg', hide: 'hide-bg'}" src="images/bg01.jpg">
+<img bg class="fullBg" ng-show="isCurrentPage('contact')" ng-animate="{show: 'show-bg', hide: 'hide-bg'}" src="images/bg02.jpg">
 
-<img id="logo" src="images/superlogo.png" alt="logo"/>
+<img class="logo" src="images/superlogo.png" alt="logo">
 
 <div class="panel" ng-show="!inTransit" ng-animate="{show: 'show-panel', hide: 'hide-panel'}">
     <div ng-show="!inTransit">
@@ -26,7 +26,7 @@
     </div>
 </div>
 
-<ul id="nav" class="nav nav-pills" ng-show="!inTransit" ng-animate="{show: 'fade-in', hide: 'fade-out'}">
+<ul class="nav nav-pills" ng-show="!inTransit" ng-animate="{show: 'fade-in', hide: 'fade-out'}">
     <li ng-class="{'active':isCurrentPage('home')}"><a ng-click="setCurrentPage('home')">HOME</a></li>
     <li ng-class="{'active':isCurrentPage('about')}"><a ng-click="setCurrentPage('about')">ABOUT</a></li>
     <li ng-class="{'active':isCurrentPage('contact')}"><a ng-click="setCurrentPage('contact')">CONTACT</a></li>

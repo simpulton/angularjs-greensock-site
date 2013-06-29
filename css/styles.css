@@ -8,7 +8,7 @@ body {
     left: 0;
 }
 
-#logo {
+.logo {
     position: absolute;
     left: 35px;
     top: 35px;
@@ -21,8 +21,7 @@ body {
     height: 33px;
 }
 
-
-#nav {
+.nav {
     position: absolute;
     right: 35px;
     top: 35px;
@@ -33,7 +32,7 @@ body {
     padding: 0;
 }
 
-#nav li {
+.nav li {
     cursor: pointer;
 }
 
