@@ -129,7 +129,7 @@ angular.module('website', [])
                 TweenMax.set(element, {position: 'absolute'});
             },
             start: function (element, done) {
-                TweenMax.to(element, 1, {left: -$window.innerWidth, onComplete: done});
+                TweenMax.to(element, 0.5, {left: -$window.innerWidth, onComplete: done});
             }
         }
     })
@@ -144,7 +144,7 @@ angular.module('website', [])
             },
             start: function (element, done) {
                 var $scope = getScope(element);
-                TweenMax.to(element, 1, {left: 0, onComplete: function () {
+                TweenMax.to(element, 0.5, {left: 0, onComplete: function () {
                     $scope.$apply(function () {
                         $scope.inTransit = false;
                     });
