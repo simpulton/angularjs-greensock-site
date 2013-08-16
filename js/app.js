@@ -1,4 +1,4 @@
-angular.module('website', [])
+angular.module('website', ['ngAnimate'])
     .factory('ContentService', function () {
         var content = {
             'home': {
@@ -26,21 +26,48 @@ angular.module('website', [])
             getContent: getContent
         };
     })
-    .controller('MainCtrl', function ($scope, ContentService) {
+    .factory('TransitService', function ($rootScope) {
+        var inTransit = false;
+
+        var setTransit = function(transit) {
+            inTransit = transit;
+            $rootScope.$broadcast('onTransitChanged');
+        }
+
+        var getTransit = function() {
+            return inTransit;
+        }
+
+        return {
+            getTransit: getTransit,
+            setTransit: setTransit
+        };
+    })
+    .controller('MainCtrl', function ($scope, ContentService, TransitService) {
         $scope.pages = ContentService.getContent();
 
         $scope.currentPage = 'home';
         $scope.page = $scope.pages['home'];
-        $scope.inTransit = false;
+        $scope.isInTransit = false;
 
         $scope.getCurrentPage = function () {
             return $scope.currentPage;
         };
 
         $scope.setCurrentPage = function (page) {
-            $scope.inTransit = true;
-            $scope.page = $scope.pages[page];
-            $scope.currentPage = page;
+            if($scope.currentPage !== page) {
+                TransitService.setTransit(true);
+                $scope.page = $scope.pages[page];
+                $scope.currentPage = page;
+            }
+        };
+
+        $scope.$on('onTransitChanged', function() {
+            $scope.isInTransit = TransitService.getTransit();
+        });
+
+        $scope.isInTransit = function() {
+            return TransitService.inTransit;
         };
 
         $scope.isCurrentPage = function (page) {
@@ -87,83 +114,47 @@ angular.module('website', [])
             link: linker
         };
     })
-    .animation('fade-in', function ($window) {
+    .animation('.bg-animation', function ($window, TransitService) {
         return {
-            start: function (element, done) {
-                TweenMax.to(element, 1, {alpha: 1, onComplete: done});
-            },
-            cancel: function (element, done) {
-                cancelAnimation(element);
-                done();
-            }
-        }
-    })
-    .animation('fade-out', function ($window) {
-        return {
-            start: function (element, done) {
-                TweenMax.to(element, 0.2, {alpha: 0, onComplete: done});
-            },
-            cancel: function (element, done) {
-                cancelAnimation(element);
-                done();
-            }
-        }
-    })
-    .animation('hide-panel', function ($window) {
-        return {
-            setup: function (element, done) {
-                TweenMax.set(element, {position: 'absolute'});
-            },
-            start: function (element, done) {
-                TweenMax.to(element, 0.2, {alpha: 0, onComplete: done});
-            }
-        }
-    })
-    .animation('show-panel', function ($window) {
-        return {
-            setup: function (element, done) {
-                TweenMax.set(element, { left: -element.width()});
-            },
-            start: function (element, done) {
-                TweenMax.to(element, 0.2, {alpha: 0.8, onComplete: done});
-                TweenMax.to(element, 0.5, {left: 0, onComplete: done});
-            },
-            cancel: function (element, done) {
-                cancelAnimation(element);
-                done();
-            }
-        }
-    })
-    .animation('hide-bg', function ($window) {
-        return {
-            setup: function (element, done) {
-                TweenMax.set(element, {position: 'absolute'});
-            },
-            start: function (element, done) {
-                TweenMax.to(element, 0.5, {left: -$window.innerWidth, onComplete: done});
-            }
-        }
-    })
-    .animation('show-bg', function ($window) {
-        var getScope = function (e) {
-            return angular.element(e).scope();
-        };
+            enter: function (element, done) {
+                var $scope = element.scope();
 
-        return {
-            setup: function (element, done) {
                 TweenMax.set(element, { left: $window.innerWidth});
-            },
-            start: function (element, done) {
-                var $scope = getScope(element);
                 TweenMax.to(element, 0.5, {left: 0, onComplete: function () {
                     $scope.$apply(function () {
-                        $scope.inTransit = false;
+                        TransitService.setTransit(false);
                     });
+
+                    done();
                 }});
             },
-            cancel: function (element, done) {
-                cancelAnimation(element);
-                done();
+
+            leave: function (element, done) {
+                TweenMax.to(element, 0.5, {left: -$window.innerWidth, onComplete: done});
             }
-        }
+        };
+    })
+    .animation('.panel-animation', function ($window) {
+        return {
+            addClass: function (element, className, done) {
+                if (className == 'ng-hide') {
+                    TweenMax.to(element, 0.2, { alpha: 0, onComplete: done });
+                }
+                else {
+                    done();
+                }
+            },
+            removeClass: function (element, className, done) {
+                if (className == 'ng-hide') {
+                    element.removeClass('ng-hide');
+                    TweenMax.set(element, { alpha: 0, left: -element.width() });
+                    TweenMax.to(element, 0.2, { alpha: 0.8 });
+                    TweenMax.to(element, 0.5, { left: 0, onComplete: done });
+                }
+                else {
+                    done();
+                }
+            }
+        };
     });
+
