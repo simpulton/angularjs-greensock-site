@@ -29,12 +29,12 @@ angular.module('website', ['ngAnimate'])
     .factory('TransitService', function ($rootScope) {
         var inTransit = false;
 
-        var setTransit = function(transit) {
+        var setTransit = function (transit) {
             inTransit = transit;
             $rootScope.$broadcast('onTransitChanged');
         }
 
-        var getTransit = function() {
+        var getTransit = function () {
             return inTransit;
         }
 
@@ -55,18 +55,18 @@ angular.module('website', ['ngAnimate'])
         };
 
         $scope.setCurrentPage = function (page) {
-            if($scope.currentPage !== page) {
+            if ($scope.currentPage !== page) {
                 TransitService.setTransit(true);
                 $scope.page = $scope.pages[page];
                 $scope.currentPage = page;
             }
         };
 
-        $scope.$on('onTransitChanged', function() {
+        $scope.$on('onTransitChanged', function () {
             $scope.isInTransit = TransitService.getTransit();
         });
 
-        $scope.isInTransit = function() {
+        $scope.isInTransit = function () {
             return TransitService.inTransit;
         };
 
@@ -74,7 +74,7 @@ angular.module('website', ['ngAnimate'])
             return $scope.currentPage === page;
         };
     })
-    .directive('bg', function($window) {
+    .directive('bg', function ($window) {
         // Adapted from http://bavotasan.com/2011/full-sizebackground-image-jquery-plugin/ Thanks @bavotasan!
         var linker = function (scope, element, attrs) {
             var resizeBG = function () {
