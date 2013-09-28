@@ -26,24 +26,7 @@ angular.module('website', ['ngAnimate'])
             getContent: getContent
         };
     })
-    .factory('TransitService', function ($rootScope) {
-        var inTransit = false;
-
-        var setTransit = function (transit) {
-            inTransit = transit;
-            $rootScope.$broadcast('onTransitChanged');
-        }
-
-        var getTransit = function () {
-            return inTransit;
-        }
-
-        return {
-            getTransit: getTransit,
-            setTransit: setTransit
-        };
-    })
-    .controller('MainCtrl', function ($scope, ContentService, TransitService) {
+    .controller('MainCtrl', function ($scope, ContentService) {
         $scope.pages = ContentService.getContent();
 
         $scope.currentPage = 'home';
@@ -56,18 +39,10 @@ angular.module('website', ['ngAnimate'])
 
         $scope.setCurrentPage = function (page) {
             if ($scope.currentPage !== page) {
-                TransitService.setTransit(true);
                 $scope.page = $scope.pages[page];
                 $scope.currentPage = page;
+                $scope.isInTransit = true;
             }
-        };
-
-        $scope.$on('onTransitChanged', function () {
-            $scope.isInTransit = TransitService.getTransit();
-        });
-
-        $scope.isInTransit = function () {
-            return TransitService.inTransit;
         };
 
         $scope.isCurrentPage = function (page) {
@@ -114,13 +89,13 @@ angular.module('website', ['ngAnimate'])
             link: linker
         };
     })
-    .animation('.bg-animation', function ($window, TransitService) {
+    .animation('.bg-animation', function ($window) {
         return {
             enter: function (element, done) {
-                var $scope = element.scope();
+                var parentScope = element.scope().$parent;
                 TweenMax.fromTo(element, 0.5, { left: $window.innerWidth}, {left: 0, onComplete: function () {
-                    $scope.$apply(function () {
-                        TransitService.setTransit(false);
+                    parentScope.$apply(function(){
+                        parentScope.isInTransit = false;
                     });
 
                     done();
