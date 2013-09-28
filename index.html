@@ -10,18 +10,16 @@
 
 <body ng-controller="MainCtrl">
 
+<img class="logo" src="images/superlogo.png" alt="logo">
+
 <img bg class="fullBg bg-animation" ng-if="isCurrentPage('home')" src="images/bg00.jpg">
 <img bg class="fullBg bg-animation" ng-if="isCurrentPage('about')" src="images/bg01.jpg">
 <img bg class="fullBg bg-animation" ng-if="isCurrentPage('contact')" src="images/bg02.jpg">
 
-<img class="logo" src="images/superlogo.png" alt="logo">
-
-<div class="panel panel-animation" ng-hide="isInTransit">
+<div class="panel panel-animation" ng-hide="isInTransit" >
     <div>
         <h1 class="blue">{{page.label}}</h1>
-
         <h3>{{page.sublabel}}</h3>
-
         <p>{{page.content}}</p>
     </div>
 </div>
@@ -32,8 +30,8 @@
     <li ng-class="{'active':isCurrentPage('contact')}"><a ng-click="setCurrentPage('contact')">CONTACT</a></li>
 </ul>
 
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/gsap/1.9.7/TweenMax.min.js"></script>
+<script src="libs/jquery.min.js"></script>
+<script src="libs/TweenMax.min.js"></script>
 <script src="libs/angular.min.js"></script>
 <script src="libs/angular-animate.min.js"></script>
 <script src="js/app.js"></script>

@@ -20,7 +20,7 @@ angular.module('website', ['ngAnimate'])
 
         var getContent = function () {
             return content;
-        }
+        };
 
         return {
             getContent: getContent
@@ -118,9 +118,7 @@ angular.module('website', ['ngAnimate'])
         return {
             enter: function (element, done) {
                 var $scope = element.scope();
-
-                TweenMax.set(element, { left: $window.innerWidth});
-                TweenMax.to(element, 0.5, {left: 0, onComplete: function () {
+                TweenMax.fromTo(element, 0.5, { left: $window.innerWidth}, {left: 0, onComplete: function () {
                     $scope.$apply(function () {
                         TransitService.setTransit(false);
                     });
@@ -147,9 +145,7 @@ angular.module('website', ['ngAnimate'])
             removeClass: function (element, className, done) {
                 if (className == 'ng-hide') {
                     element.removeClass('ng-hide');
-                    TweenMax.set(element, { alpha: 0, left: -element.width() });
-                    TweenMax.to(element, 0.2, { alpha: 0.8 });
-                    TweenMax.to(element, 0.5, { left: 0, onComplete: done });
+                    TweenMax.fromTo(element, 0.5, { alpha: 0, left: -element.width() }, { alpha: 0.8, left: 0, onComplete: done });
                 }
                 else {
                     done();
