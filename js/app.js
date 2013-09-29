@@ -1,21 +1,9 @@
 angular.module('website', ['ngAnimate'])
     .controller('MainCtrl', function ($scope) {
         $scope.pages = {
-            'home': {
-                label: 'Home',
-                sublabel: 'Sublabel',
-                content: 'Bacon ipsum dolor sit amet prosciutto filet mignon biltong, pork loin turkey beef ribs brisket. Pancetta corned beef spare ribs strip steak ball tip ham, meatloaf turkey.'
-            },
-            'about': {
-                label: 'About',
-                sublabel: 'Sublabel',
-                content: 'Bacon ipsum dolor sit amet prosciutto filet mignon biltong, pork loin turkey beef ribs brisket. Pancetta corned beef spare ribs strip steak ball tip ham, meatloaf turkey.'
-            },
-            'contact': {
-                label: 'Contact',
-                sublabel: 'Sublabel',
-                content: 'Bacon ipsum dolor sit amet prosciutto filet mignon biltong, pork loin turkey beef ribs brisket. Pancetta corned beef spare ribs strip steak ball tip ham, meatloaf turkey.'
-            }
+            'home': { label: 'Home', sublabel: 'Sublabel', content: 'This is page content.' },
+            'about': { label: 'About', sublabel: 'Sublabel', content: 'This is page content.' },
+            'contact': { label: 'Contact', sublabel: 'Sublabel', content: 'This is page content.' }
         };
 
         $scope.currentPage = 'home';
@@ -83,7 +71,7 @@ angular.module('website', ['ngAnimate'])
             enter: function (element, done) {
                 var parentScope = element.scope().$parent;
                 TweenMax.fromTo(element, 0.5, { left: $window.innerWidth}, {left: 0, onComplete: function () {
-                    parentScope.$apply(function(){
+                    parentScope.$apply(function () {
                         parentScope.isInTransit = false;
                     });
 
@@ -96,7 +84,7 @@ angular.module('website', ['ngAnimate'])
             }
         };
     })
-    .animation('.panel-animation', function ($window) {
+    .animation('.panel-animation', function () {
         return {
             addClass: function (element, className, done) {
                 if (className == 'ng-hide') {
