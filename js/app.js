@@ -25,6 +25,10 @@ angular.module('website', ['ngAnimate'])
         $scope.isCurrentPage = function (page) {
             return $scope.currentPage === page;
         };
+
+        $scope.$on('bgTransitionComplete', function(){
+            $scope.isInTransit = false;
+        });
     })
     .directive('bg', function ($window) {
         // Adapted from http://bavotasan.com/2011/full-sizebackground-image-jquery-plugin/ Thanks @bavotasan!
@@ -66,15 +70,13 @@ angular.module('website', ['ngAnimate'])
             link: linker
         };
     })
-    .animation('.bg-animation', function ($window) {
+    .animation('.bg-animation', function ($window, $rootScope) {
         return {
             enter: function (element, done) {
-                var parentScope = element.scope().$parent;
                 TweenMax.fromTo(element, 0.5, { left: $window.innerWidth}, {left: 0, onComplete: function () {
-                    parentScope.$apply(function () {
-                        parentScope.isInTransit = false;
+                    $rootScope.$apply(function(){
+                        $rootScope.$broadcast('bgTransitionComplete');
                     });
-
                     done();
                 }});
             },
