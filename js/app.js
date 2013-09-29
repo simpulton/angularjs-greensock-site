@@ -1,6 +1,6 @@
 angular.module('website', ['ngAnimate'])
-    .factory('ContentService', function () {
-        var content = {
+    .controller('MainCtrl', function ($scope) {
+        $scope.pages = {
             'home': {
                 label: 'Home',
                 sublabel: 'Sublabel',
@@ -17,17 +17,6 @@ angular.module('website', ['ngAnimate'])
                 content: 'Bacon ipsum dolor sit amet prosciutto filet mignon biltong, pork loin turkey beef ribs brisket. Pancetta corned beef spare ribs strip steak ball tip ham, meatloaf turkey.'
             }
         };
-
-        var getContent = function () {
-            return content;
-        };
-
-        return {
-            getContent: getContent
-        };
-    })
-    .controller('MainCtrl', function ($scope, ContentService) {
-        $scope.pages = ContentService.getContent();
 
         $scope.currentPage = 'home';
         $scope.page = $scope.pages['home'];
