@@ -1,4 +1,4 @@
-angular.module('website', ['ngAnimate'])
+angular.module('website', [])
     .controller('MainCtrl', function ($scope) {
         $scope.pages = {
             'home': { label: 'Home', sublabel: 'Sublabel', content: 'This is page content.' },
