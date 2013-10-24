@@ -86,7 +86,7 @@ angular.module('website', ['ngAnimate'])
         return {
             addClass: function (element, className, done) {
                 if (className == 'ng-hide') {
-                    TweenMax.to(element, 0.2, { alpha: 0, onComplete: done });
+                    TweenMax.to(element, 0.2, { opacity: 0, onComplete: done });
                 }
                 else {
                     done();
@@ -95,7 +95,7 @@ angular.module('website', ['ngAnimate'])
             removeClass: function (element, className, done) {
                 if (className == 'ng-hide') {
                     element.removeClass('ng-hide');
-                    TweenMax.fromTo(element, 0.5, { alpha: 0, left: -element.width() }, { alpha: 0.8, left: 0, onComplete: done });
+                    TweenMax.fromTo(element, 0.5, { opacity: 0, left: -element.width() }, { opacity: 0.8, left: 0, onComplete: done });
                 }
                 else {
                     done();
