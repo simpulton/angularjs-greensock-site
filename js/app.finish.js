@@ -1,4 +1,5 @@
 angular.module('website', ['ngAnimate'])
+    .constant('TweenMax', TweenMax)
     .controller('MainCtrl', function ($scope) {
         $scope.pages = {
             'home': { label: 'Home', sublabel: 'Sublabel', content: 'This is page content.' },
@@ -66,7 +67,7 @@ angular.module('website', ['ngAnimate'])
             link: linker
         };
     })
-    .animation('.bg-animation', function ($window, $rootScope) {
+    .animation('.bg-animation', function ($window, $rootScope, TweenMax) {
         return {
             enter: function (element, done) {
                 TweenMax.fromTo(element, 0.5, { left: $window.innerWidth}, {left: 0, onComplete: function () {
@@ -82,7 +83,7 @@ angular.module('website', ['ngAnimate'])
             }
         };
     })
-    .animation('.panel-animation', function () {
+    .animation('.panel-animation', function (TweenMax) {
         return {
             addClass: function (element, className, done) {
                 if (className == 'ng-hide') {
