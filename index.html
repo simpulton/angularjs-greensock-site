@@ -1,40 +1,42 @@
 <!DOCTYPE html>
 <html ng-app="website">
-<head>
+  <head>
     <meta charset="utf-8">
     <title>AngularJS Animate Website</title>
 
     <link href="css/bootstrap.css" rel="stylesheet">
     <link rel="stylesheet" href="css/styles.css">
-</head>
+  </head>
 
-<body ng-controller="MainCtrl">
+  <body ng-controller="MainCtrl">
 
-<img class="logo" src="images/superlogo.png" alt="logo">
+    <img class="logo" src="images/superlogo.png" alt="logo">
 
-<img bg class="fullBg" ng-if="isCurrentPage('home')" src="images/bg00.jpg">
-<img bg class="fullBg" ng-if="isCurrentPage('about')" src="images/bg01.jpg">
-<img bg class="fullBg" ng-if="isCurrentPage('contact')" src="images/bg02.jpg">
+    <img bg class="fullBg" ng-if="isCurrentPage('home')" src="images/bg00.jpg">
+    <img bg class="fullBg" ng-if="isCurrentPage('about')" src="images/bg01.jpg">
+    <img bg class="fullBg" ng-if="isCurrentPage('contact')" src="images/bg02.jpg">
 
-<div class="panel panel-animation" ng-hide="isInTransit" >
-    <div>
+    <div class="panel panel-animation" ng-hide="isInTransit">
+      <div>
         <h1 class="blue">{{page.label}}</h1>
+
         <h3>{{page.sublabel}}</h3>
+
         <p>{{page.content}}</p>
+      </div>
     </div>
-</div>
 
-<ul class="nav nav-pills">
-    <li ng-class="{'active':isCurrentPage('home')}"><a ng-click="setCurrentPage('home')">HOME</a></li>
-    <li ng-class="{'active':isCurrentPage('about')}"><a ng-click="setCurrentPage('about')">ABOUT</a></li>
-    <li ng-class="{'active':isCurrentPage('contact')}"><a ng-click="setCurrentPage('contact')">CONTACT</a></li>
-</ul>
+    <ul class="nav nav-pills">
+      <li ng-class="{'active':isCurrentPage('home')}"><a ng-click="setCurrentPage('home')">HOME</a></li>
+      <li ng-class="{'active':isCurrentPage('about')}"><a ng-click="setCurrentPage('about')">ABOUT</a></li>
+      <li ng-class="{'active':isCurrentPage('contact')}"><a ng-click="setCurrentPage('contact')">CONTACT</a></li>
+    </ul>
 
-<script src="libs/jquery.min.js"></script>
-<script src="libs/TweenMax.min.js"></script>
-<script src="libs/angular.min.js"></script>
-<script src="libs/angular-animate.min.js"></script>
-<script src="js/app.js"></script>
+    <script src="libs/jquery.min.js"></script>
+    <script src="libs/TweenMax.min.js"></script>
+    <script src="libs/angular.min.js"></script>
+    <script src="libs/angular-animate.min.js"></script>
+    <script src="js/app.js"></script>
 
-</body>
+  </body>
 </html>
